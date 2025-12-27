@@ -1,722 +1,819 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Green Network - Protect Earth</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        :root {
-            --primary: #2e7d32;
-            --secondary: #4caf50;
-            --accent: #8bc34a;
-            --light: #e8f5e9;
-            --dark: #1b5e20;
-            --text: #333333;
-            --white: #ffffff;
-        }
-
-        body {
-            background-color: var(--light);
-            color: var(--text);
-            line-height: 1.6;
-        }
-
-        header {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: var(--white);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-
-        .logo i {
-            font-size: 2rem;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-
-        nav ul li {
-            margin-left: 2rem;
-        }
-
-        nav ul li a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 0.5rem 0;
-            position: relative;
-        }
-
-        nav ul li a:hover {
-            color: var(--accent);
-        }
-
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80');
-            background-size: cover;
-            background-position: center;
-            height: 80vh;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: var(--white);
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: var(--accent);
-            color: var(--white);
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn:hover {
-            background-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        section {
-            padding: 5rem 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background-color: var(--accent);
-            border-radius: 2px;
-        }
-
-        .section-title p {
-            color: var(--text);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-img {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .about-img img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .about-img:hover img {
-            transform: scale(1.05);
-        }
-
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--dark);
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 2rem 1rem;
-            background-color: var(--white);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-10px);
-        }
-
-        .stat-item i {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .stat-item h3 {
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-item p {
-            color: var(--text);
-        }
-
-        .initiatives {
-            background-color: var(--white);
-        }
-
-        .initiatives-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .initiative-card {
-            background-color: var(--light);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .initiative-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .initiative-img {
-            height: 200px;
-            overflow: hidden;
-        }
-
-        .initiative-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .initiative-card:hover .initiative-img img {
-            transform: scale(1.1);
-        }
-
-        .initiative-content {
-            padding: 1.5rem;
-        }
-
-        .initiative-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .initiative-content p {
-            margin-bottom: 1.5rem;
-        }
-
-        .cta {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: var(--white);
-            text-align: center;
-            padding: 5rem 0;
-        }
-
-        .cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .cta p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta .btn {
-            background-color: var(--white);
-            color: var(--primary);
-        }
-
-        .cta .btn:hover {
-            background-color: var(--accent);
-            color: var(--white);
-        }
-
-        footer {
-            background-color: var(--dark);
-            color: var(--white);
-            padding: 3rem 0 1rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-column h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background-color: var(--accent);
-        }
-
-        .footer-column p {
-            margin-bottom: 1rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links li a {
-            color: var(--light);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .footer-links li a:hover {
-            color: var(--accent);
-            padding-left: 5px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: var(--white);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background-color: var(--accent);
-            transform: translateY(-5px);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        @media (max-width: 992px) {
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .initiatives-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            nav ul {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: var(--primary);
-                flex-direction: column;
-                padding: 1rem 0;
-                text-align: center;
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-            }
-            
-            nav ul.active {
-                display: flex;
-            }
-            
-            nav ul li {
-                margin: 0;
-                padding: 0.8rem 0;
-            }
-            
-            .mobile-menu {
-                display: block;
-            }
-            
-            .initiatives-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Animation for stats counter */
-        .counter {
-            transition: all 0.5s ease;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="专业大方的公司官网首页模板，纯HTML单文件，适合产品、SaaS、工作室或企业官网。" />
+  <title>品牌官网｜专业大方首页</title>
+
+  <style>
+    :root{
+      --bg:#0b1220;
+      --panel:rgba(255,255,255,.06);
+      --panel2:rgba(255,255,255,.08);
+      --stroke:rgba(255,255,255,.10);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.68);
+      --muted2:rgba(255,255,255,.52);
+      --brand:#7c5cff;
+      --brand2:#33d6ff;
+      --ok:#2ee59d;
+      --warn:#ffd666;
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --shadow2: 0 10px 30px rgba(0,0,0,.35);
+      --r12:12px;
+      --r16:16px;
+      --r20:20px;
+      --max:1180px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "PingFang SC", "Microsoft YaHei", Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 18% 12%, rgba(124,92,255,.35), transparent 60%),
+        radial-gradient(900px 480px at 82% 20%, rgba(51,214,255,.25), transparent 60%),
+        radial-gradient(900px 700px at 50% 90%, rgba(46,229,157,.16), transparent 60%),
+        linear-gradient(180deg, #070b14 0%, #0b1220 45%, #070b14 100%);
+      overflow-x:hidden;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .wrap{width:min(var(--max), calc(100% - 40px)); margin:0 auto}
+
+    /* Top bar */
+    .topbar{
+      position:sticky; top:0; z-index:999;
+      backdrop-filter: blur(14px);
+      background: rgba(7,11,20,.55);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:700;
+      letter-spacing:.2px;
+    }
+    .logo{
+      width:34px;height:34px;border-radius:12px;
+      background: conic-gradient(from 220deg, var(--brand), var(--brand2), var(--ok), var(--brand));
+      box-shadow: 0 12px 30px rgba(124,92,255,.25);
+      border:1px solid rgba(255,255,255,.18);
+    }
+    .navlinks{display:flex; gap:18px; align-items:center}
+    .navlinks a{
+      font-size:14px;
+      color:var(--muted);
+      padding:8px 10px;
+      border-radius:10px;
+      transition:.2s ease;
+    }
+    .navlinks a:hover{background:rgba(255,255,255,.06); color:var(--text)}
+    .navcta{display:flex; gap:10px; align-items:center}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color:var(--text);
+      font-weight:600;
+      font-size:14px;
+      box-shadow: 0 8px 22px rgba(0,0,0,.20);
+      transition:.2s ease;
+      cursor:pointer;
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-1px); background:rgba(255,255,255,.07)}
+    .btn.primary{
+      border:1px solid rgba(124,92,255,.45);
+      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(51,214,255,.55));
+      box-shadow: 0 16px 50px rgba(124,92,255,.25);
+    }
+    .btn.primary:hover{filter:saturate(1.05) brightness(1.03)}
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      color:var(--muted);
+      font-size:13px;
+      width:fit-content;
+    }
+    .dot{
+      width:8px;height:8px;border-radius:50%;
+      background: var(--ok);
+      box-shadow: 0 0 0 4px rgba(46,229,157,.18);
+    }
+
+    /* Hero */
+    .hero{
+      padding:56px 0 26px;
+      position:relative;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:26px;
+      align-items:stretch;
+    }
+    .hTitle{
+      font-size: clamp(30px, 4vw, 54px);
+      line-height:1.08;
+      margin:14px 0 12px;
+      letter-spacing:-.6px;
+    }
+    .hSub{
+      font-size:16px;
+      line-height:1.7;
+      color:var(--muted);
+      margin:0 0 18px;
+      max-width: 56ch;
+    }
+    .hActions{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px}
+    .mini{
+      display:flex; flex-wrap:wrap; gap:10px; margin-top:18px;
+      color:var(--muted2);
+      font-size:13px;
+    }
+    .mini span{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+    .mini i{font-style:normal;color:rgba(255,255,255,.75)}
+    .panel{
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: var(--r20);
+      box-shadow: var(--shadow2);
+    }
+    .heroCard{
+      padding:18px;
+      position:relative;
+      overflow:hidden;
+    }
+    .heroCard:before{
+      content:"";
+      position:absolute; inset:-80px -60px auto auto;
+      width:220px;height:220px;border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, rgba(51,214,255,.35), transparent 60%);
+      filter: blur(2px);
+    }
+    .statRow{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      margin-top:14px;
+    }
+    .stat{
+      padding:12px 12px 10px;
+      border-radius:16px;
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .stat b{display:block;font-size:18px;letter-spacing:-.2px}
+    .stat small{color:var(--muted); font-size:12px}
+    .mock{
+      margin-top:14px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(600px 240px at 30% 10%, rgba(124,92,255,.18), transparent 60%),
+        radial-gradient(560px 280px at 90% 20%, rgba(51,214,255,.14), transparent 60%),
+        rgba(0,0,0,.18);
+      overflow:hidden;
+    }
+    .mockTop{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:10px 12px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      color:var(--muted);
+      font-size:12px;
+    }
+    .dots{display:flex; gap:6px}
+    .dots span{width:10px;height:10px;border-radius:50%; background: rgba(255,255,255,.18)}
+    .mockBody{padding:12px}
+    .bars{display:grid; gap:10px}
+    .bar{
+      height:10px;border-radius:999px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.08);
+      overflow:hidden;
+    }
+    .bar > span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--brand),var(--brand2))}
+    .grid2{display:grid;grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px}
+    .tile{
+      padding:10px;border-radius:16px;
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .tile b{font-size:13px}
+    .tile p{margin:6px 0 0; color:var(--muted); font-size:12px; line-height:1.6}
+
+    /* Sections */
+    section{padding:38px 0}
+    .secHead{display:flex; justify-content:space-between; align-items:flex-end; gap:16px; margin-bottom:14px}
+    .secHead h2{margin:0; font-size:22px; letter-spacing:-.2px}
+    .secHead p{margin:0; color:var(--muted); max-width: 62ch; line-height:1.7; font-size:14px}
+
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    .card{
+      padding:16px;
+      border-radius: var(--r16);
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow: 0 8px 22px rgba(0,0,0,.22);
+      transition:.2s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    .card:hover{transform: translateY(-2px); background:rgba(255,255,255,.065)}
+    .icon{
+      width:40px;height:40px;border-radius:14px;
+      display:grid; place-items:center;
+      background: rgba(124,92,255,.16);
+      border:1px solid rgba(124,92,255,.25);
+      color: rgba(255,255,255,.9);
+      box-shadow: 0 14px 30px rgba(124,92,255,.14);
+      margin-bottom:12px;
+      font-size:18px;
+    }
+    .card h3{margin:0 0 8px; font-size:16px}
+    .card p{margin:0; color:var(--muted); line-height:1.7; font-size:14px}
+    .card a.more{display:inline-flex; gap:8px; margin-top:12px; color:rgba(255,255,255,.86); font-weight:600; font-size:14px}
+    .card a.more:hover{opacity:.9}
+
+    /* Showcase */
+    .show{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    .shot{
+      padding:16px;
+      border-radius: var(--r20);
+      border:1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(700px 320px at 20% 10%, rgba(124,92,255,.14), transparent 60%),
+        radial-gradient(700px 320px at 90% 20%, rgba(51,214,255,.12), transparent 60%),
+        rgba(255,255,255,.04);
+      overflow:hidden;
+      position:relative;
+      box-shadow: var(--shadow2);
+    }
+    .shot h3{margin:0 0 6px;font-size:16px}
+    .shot p{margin:0 0 12px;color:var(--muted); font-size:14px; line-height:1.7}
+    .shot .tagrow{display:flex; flex-wrap:wrap; gap:8px}
+    .tag{
+      font-size:12px;color:var(--muted);
+      padding:6px 10px;border-radius:999px;
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.10);
+    }
+
+    /* Pricing */
+    .pricing{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+      align-items:stretch;
+    }
+    .price{
+      padding:18px;
+      border-radius: var(--r20);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      box-shadow: var(--shadow2);
+    }
+    .price.featured{
+      background: linear-gradient(180deg, rgba(124,92,255,.18), rgba(255,255,255,.05));
+      border:1px solid rgba(124,92,255,.35);
+      transform: translateY(-2px);
+    }
+    .price h3{margin:0 0 6px}
+    .price .desc{color:var(--muted); margin:0 0 12px; font-size:14px; line-height:1.7}
+    .money{font-size:34px; letter-spacing:-.6px; margin:8px 0 12px}
+    .money small{font-size:13px; color:var(--muted)}
+    ul.feat{list-style:none; padding:0; margin:0 0 14px; display:grid; gap:10px}
+    ul.feat li{
+      display:flex; gap:10px; align-items:flex-start;
+      color:rgba(255,255,255,.82);
+      font-size:14px; line-height:1.6;
+    }
+    .tick{
+      width:18px;height:18px;border-radius:6px;
+      background: rgba(46,229,157,.16);
+      border:1px solid rgba(46,229,157,.30);
+      display:grid;place-items:center;
+      flex:0 0 18px;
+      margin-top:2px;
+    }
+    .tick svg{width:12px;height:12px; fill:none; stroke: rgba(255,255,255,.9); stroke-width:2}
+
+    /* Testimonials */
+    .testi{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    .quote{
+      padding:16px;
+      border-radius: var(--r20);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+    .quote p{margin:0; color:rgba(255,255,255,.82); line-height:1.8; font-size:14px}
+    .who{display:flex; align-items:center; gap:10px; margin-top:14px; color:var(--muted)}
+    .avatar{
+      width:38px;height:38px;border-radius:14px;
+      background: linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.10);
+      display:grid; place-items:center;
+      font-weight:700; color:rgba(255,255,255,.80);
+    }
+
+    /* FAQ */
+    .faq{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    details{
+      border-radius: var(--r16);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding:12px 14px;
+    }
+    summary{
+      cursor:pointer;
+      font-weight:700;
+      color: rgba(255,255,255,.88);
+      list-style:none;
+    }
+    summary::-webkit-details-marker{display:none}
+    details p{margin:10px 0 2px; color:var(--muted); line-height:1.8; font-size:14px}
+
+    /* Footer */
+    footer{
+      padding:26px 0 34px;
+      border-top:1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.12);
+    }
+    .foot{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr .8fr .8fr;
+      gap:16px;
+    }
+    .foot h4{margin:0 0 10px; font-size:14px; color:rgba(255,255,255,.86)}
+    .foot a{display:block; padding:6px 0; color:var(--muted); font-size:14px}
+    .foot a:hover{color:rgba(255,255,255,.90)}
+    .subline{
+      margin-top:18px;
+      display:flex; flex-wrap:wrap; gap:10px;
+      justify-content:space-between; align-items:center;
+      color:var(--muted2); font-size:13px;
+    }
+    .social{display:flex; gap:10px}
+    .social a{
+      padding:8px 10px;border-radius:12px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+    .social a:hover{background: rgba(255,255,255,.06)}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .heroGrid{grid-template-columns:1fr}
+      .cards,.pricing,.testi{grid-template-columns:1fr}
+      .show{grid-template-columns:1fr}
+      .faq{grid-template-columns:1fr}
+      .foot{grid-template-columns:1fr 1fr}
+      .navlinks{display:none}
+    }
+  </style>
 </head>
+
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container nav-container">
-            <div class="logo">
-                <i class="fas fa-seedling"></i>
-                <span>Green Network</span>
-            </div>
-            <nav>
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#initiatives">Initiatives</a></li>
-                    <li><a href="#get-involved">Get Involved</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+  <!-- Top Navigation -->
+  <header class="topbar">
+    <div class="wrap">
+      <div class="nav">
+        <a class="brand" href="#">
+          <span class="logo" aria-hidden="true"></span>
+          <span>Nova Studio</span>
+        </a>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container hero-content">
-            <h1>Protect Our Planet, Preserve Our Future</h1>
-            <p>Join the global movement to create a sustainable world through conservation, education, and community action.</p>
-            <a href="#get-involved" class="btn">Join Our Network</a>
+        <nav class="navlinks" aria-label="主导航">
+          <a href="#features">优势</a>
+          <a href="#solutions">方案</a>
+          <a href="#cases">案例</a>
+          <a href="#pricing">价格</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+
+        <div class="navcta">
+          <a class="btn" href="#pricing">查看报价</a>
+          <a class="btn primary" href="#contact">获取方案</a>
         </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="heroGrid">
+          <div>
+            <div class="chip"><span class="dot"></span> 2025 版官网模板 · 纯 HTML 单文件</div>
+            <h1 class="hTitle">专业、大方、漂亮的首页设计<br/>让品牌第一眼就更值得信任</h1>
+            <p class="hSub">
+              这是一套偏“高端科技/企业官网”的首页结构：清晰的信息层级、舒适留白、卡片式内容布局，适合 SaaS、工作室、企业展示页。
+              你可以直接替换文案、颜色、图片占位即可上线。
+            </p>
+
+            <div class="hActions">
+              <a class="btn primary" href="#contact">立即咨询</a>
+              <a class="btn" href="#cases">查看案例</a>
+              <a class="btn" href="#features">了解优势</a>
+            </div>
+
+            <div class="mini" aria-label="关键卖点">
+              <span><i>✓</i> 自适应布局</span>
+              <span><i>✓</i> 高级暗色风格</span>
+              <span><i>✓</i> 结构完整可商用</span>
+              <span><i>✓</i> 纯 HTML 单文件</span>
+            </div>
+          </div>
+
+          <aside class="panel heroCard" aria-label="右侧数据与预览">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
+              <div>
+                <div class="chip" style="margin-bottom:10px">
+                  <span class="dot" style="background:var(--brand2); box-shadow:0 0 0 4px rgba(51,214,255,.16)"></span>
+                  实时概览
+                </div>
+                <div style="font-weight:800; font-size:18px; letter-spacing:-.2px;">增长面板（示例）</div>
+                <div style="color:var(--muted); font-size:13px; margin-top:4px; line-height:1.6;">
+                  用数据增强“可信度”，右侧可放产品截图 / 仪表盘 / 视频封面等。
+                </div>
+              </div>
+              <span class="chip" title="占位提示">可替换图片/视频</span>
+            </div>
+
+            <div class="statRow" role="list" aria-label="关键指标">
+              <div class="stat" role="listitem"><b>+38%</b><small>转化率提升</small></div>
+              <div class="stat" role="listitem"><b>2.3s</b><small>首屏加载（示例）</small></div>
+              <div class="stat" role="listitem"><b>99.9%</b><small>稳定性（示例）</small></div>
+            </div>
+
+            <div class="mock" aria-label="仪表盘占位">
+              <div class="mockTop">
+                <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
+                <div>dashboard.html</div>
+              </div>
+              <div class="mockBody">
+                <div class="bars" aria-hidden="true">
+                  <div class="bar"><span style="width:78%"></span></div>
+                  <div class="bar"><span style="width:54%"></span></div>
+                  <div class="bar"><span style="width:66%"></span></div>
+                </div>
+                <div class="grid2">
+                  <div class="tile">
+                    <b>模块化组件</b>
+                    <p>卡片、价格、FAQ、评价一应俱全。</p>
+                  </div>
+                  <div class="tile">
+                    <b>更好的信息层级</b>
+                    <p>标题、要点、CTA 清晰聚焦。</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>About Green Network</h2>
-                <p>We are a global community dedicated to environmental protection and sustainable development.</p>
-            </div>
-            <div class="about-content">
-                <div class="about-img">
-                    <img src="https://images.unsplash.com/photo-1507591064344-4c6ce005b128?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Team planting trees">
-                </div>
-                <div class="about-text">
-                    <h3>Our Mission</h3>
-                    <p>Green Network is committed to creating a sustainable future by protecting natural ecosystems, promoting renewable energy, and empowering communities to take environmental action.</p>
-                    <p>Founded in 2010, we've grown from a small grassroots organization to an international network with over 50,000 members across 120 countries.</p>
-                    <p>Our approach combines scientific research, community engagement, and policy advocacy to address the most pressing environmental challenges of our time.</p>
-                    <a href="#" class="btn">Learn More</a>
-                </div>
-            </div>
-            <div class="stats">
-                <div class="stat-item">
-                    <i class="fas fa-tree"></i>
-                    <h3 class="counter" data-target="2500000">0</h3>
-                    <p>Trees Planted</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-users"></i>
-                    <h3 class="counter" data-target="50000">0</h3>
-                    <p>Active Members</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-globe-americas"></i>
-                    <h3 class="counter" data-target="120">0</h3>
-                    <p>Countries Reached</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-recycle"></i>
-                    <h3 class="counter" data-target="1500">0</h3>
-                    <p>Cleanup Projects</p>
-                </div>
-            </div>
+    <!-- Features -->
+    <section id="features">
+      <div class="wrap">
+        <div class="secHead">
+          <div>
+            <h2>核心优势</h2>
+            <p>强调用户最关心的价值：可信、效率、体验。每个点都配一个“可感知”的描述，增强说服力。</p>
+          </div>
         </div>
+
+        <div class="cards" role="list">
+          <article class="card" role="listitem">
+            <div class="icon" aria-hidden="true">⚡</div>
+            <h3>快：轻量首屏体验</h3>
+            <p>不依赖外部框架，结构清爽、加载开销低，适合静态站或放到任何 CMS 里。</p>
+            <a class="more" href="#solutions">了解更多 →</a>
+          </article>
+
+          <article class="card" role="listitem">
+            <div class="icon" aria-hidden="true">🛡️</div>
+            <h3>稳：专业视觉与层级</h3>
+            <p>采用“暗色高级风 + 渐变点缀”的企业风格，视觉克制但有记忆点。</p>
+            <a class="more" href="#cases">查看案例 →</a>
+          </article>
+
+          <article class="card" role="listitem">
+            <div class="icon" aria-hidden="true">🎯</div>
+            <h3>准：转化导向 CTA</h3>
+            <p>在 Hero、价格区、页脚设置多个合理行动按钮，让用户更容易下决策。</p>
+            <a class="more" href="#pricing">查看价格 →</a>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <!-- Initiatives Section -->
-    <section class="initiatives" id="initiatives">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Initiatives</h2>
-                <p>Discover the key programs and projects we're implementing to protect our planet.</p>
-            </div>
-            <div class="initiatives-grid">
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://dialogue.earth/content/uploads/2021/04/lessons-from-the-rush-to-reforest-china-dialogue-2400x1599.jpg" alt="Reforestation">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Global Reforestation</h3>
-                        <p>Planting millions of trees worldwide to restore ecosystems, combat climate change, and protect biodiversity.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://images.unsplash.com/photo-1621451537084-482c73073a0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Ocean Conservation">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Ocean Conservation</h3>
-                        <p>Protecting marine ecosystems, reducing plastic pollution, and promoting sustainable fishing practices.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80" alt="Renewable Energy">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Renewable Energy</h3>
-                        <p>Promoting solar, wind, and other clean energy sources to reduce dependence on fossil fuels.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-            </div>
+    <!-- Solutions -->
+    <section id="solutions">
+      <div class="wrap">
+        <div class="secHead">
+          <div>
+            <h2>解决方案</h2>
+            <p>用“场景化”语言描述你能帮客户解决什么问题，比单纯罗列功能更有效。</p>
+          </div>
+          <div class="chip">可直接替换成：产品功能 / 服务项目</div>
         </div>
+
+        <div class="show">
+          <div class="shot">
+            <h3>企业官网 / 品牌展示</h3>
+            <p>适合工作室、科技公司、出海产品：突出可信背书、展示案例、承接咨询。</p>
+            <div class="tagrow">
+              <span class="tag">品牌感</span><span class="tag">可信背书</span><span class="tag">咨询转化</span>
+            </div>
+          </div>
+          <div class="shot">
+            <h3>SaaS 产品落地页</h3>
+            <p>用产品截图/动图替换右侧模块，加上价格与试用入口即可快速上线。</p>
+            <div class="tagrow">
+              <span class="tag">产品介绍</span><span class="tag">价格方案</span><span class="tag">注册转化</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta" id="get-involved">
-        <div class="container">
-            <h2>Join Our Global Movement</h2>
-            <p>Together, we can create a sustainable future for generations to come. Every action counts, no matter how small.</p>
-            <a href="#" class="btn">Become a Member</a>
+    <!-- Cases -->
+    <section id="cases">
+      <div class="wrap">
+        <div class="secHead">
+          <div>
+            <h2>精选案例</h2>
+            <p>建议放 3–6 个即可，配一句话成果描述（例如：CTR、转化率、咨询量）。</p>
+          </div>
         </div>
+
+        <div class="cards" role="list">
+          <article class="card" role="listitem">
+            <div class="icon" aria-hidden="true">🧩</div>
+            <h3>Case A · 落地页改版</h3>
+            <p>结构重排 + CTA 优化，使咨询转化（示例）提升 28%。</p>
+          </article>
+          <article class="card" role="listitem">
+            <div class="icon" aria-hidden="true">📈</div>
+            <h3>Case B · 产品展示页</h3>
+            <p>以“功能 → 场景 → 结果”叙事，注册点击率（示例）提升 19%。</p>
+          </article>
+          <article class="card" role="listitem">
+            <div class="icon" aria-hidden="true">✨</div>
+            <h3>Case C · 品牌升级</h3>
+            <p>统一视觉系统与组件，整体更高级、更一致、更耐看。</p>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Green Network</h3>
-                    <p>We are dedicated to protecting our planet through collaborative action, education, and sustainable solutions.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#initiatives">Initiatives</a></li>
-                        <li><a href="#get-involved">Get Involved</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Our Programs</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Reforestation</a></li>
-                        <li><a href="#">Ocean Cleanup</a></li>
-                        <li><a href="#">Wildlife Protection</a></li>
-                        <li><a href="#">Climate Education</a></li>
-                        <li><a href="#">Sustainable Agriculture</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Contact Us</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Copper Creek Drive, New York</p>
-                    <p><i class="fas fa-phone"></i> +1 (312) 171-0771</p>
-                    <p><i class="fas fa-envelope"></i> support@greennetwork.org</p>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2025 Green Network. All rights reserved.</p>
-            </div>
+    <!-- Pricing -->
+    <section id="pricing">
+      <div class="wrap">
+        <div class="secHead">
+          <div>
+            <h2>价格方案</h2>
+            <p>如果你不想展示真实价格，也可以改成“套餐对比”，按钮引导联系咨询。</p>
+          </div>
         </div>
-    </footer>
 
+        <div class="pricing" role="list">
+          <article class="price" role="listitem">
+            <h3>基础版</h3>
+            <p class="desc">适合个人/小项目快速上线</p>
+            <div class="money">$199 <small>/ 起</small></div>
+            <ul class="feat">
+              <li><span class="tick" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+              </span> 单页设计 + 响应式布局</li>
+              <li><span class="tick" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+              </span> 交付 HTML 单文件</li>
+              <li><span class="tick" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+              </span> 基础 SEO 结构</li>
+            </ul>
+            <a class="btn" href="#contact">选择基础版</a>
+          </article>
+
+          <article class="price featured" role="listitem">
+            <h3>专业版（推荐）</h3>
+            <p class="desc">适合产品/企业正式官网</p>
+            <div class="money">$499 <small>/ 起</small></div>
+            <ul class="feat">
+              <li><span class="tick" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+              </span> 完整首页结构（本模板级别）</li>
+              <li><span class="tick" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+              </span> 组件化区块可自由增删</li>
+              <li><span class="tick" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+              </span> 文案与信息架构建议</li>
+            </ul>
+            <a class="btn primary" href="#contact">选择专业版</a>
+          </article>
+
+          <article class="price" role="listitem">
+            <h3>旗舰版</h3>
+            <p class="desc">适合需要多页面/品牌系统</p>
+            <div class="money">$999 <small>/ 起</small></div>
+            <ul class="feat">
+              <li><span class="tick" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+              </span> 多页面风格统一</li>
+              <li><span class="tick" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+              </span> 组件库与可复用样式</li>
+              <li><span class="tick" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+              </span> 更深度的视觉优化</li>
+            </ul>
+            <a class="btn" href="#contact">联系定制</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section>
+      <div class="wrap">
+        <div class="secHead">
+          <div>
+            <h2>客户评价</h2>
+            <p>展示真实用户声音（可替换为你的合作方/客户反馈）。</p>
+          </div>
+        </div>
+
+        <div class="testi" role="list">
+          <article class="quote" role="listitem">
+            <p>“页面看起来非常高级，信息结构清晰，用户停留时间明显变长。”</p>
+            <div class="who">
+              <div class="avatar">A</div>
+              <div><b style="color:rgba(255,255,255,.9)">Alex</b><div style="font-size:12px">产品负责人</div></div>
+            </div>
+          </article>
+          <article class="quote" role="listitem">
+            <p>“不用大改就能直接上线，CTA 很自然，咨询量比之前更稳定。”</p>
+            <div class="who">
+              <div class="avatar">M</div>
+              <div><b style="color:rgba(255,255,255,.9)">Mina</b><div style="font-size:12px">运营经理</div></div>
+            </div>
+          </article>
+          <article class="quote" role="listitem">
+            <p>“整体很干净、很‘企业级’，并且移动端体验也做得很到位。”</p>
+            <div class="who">
+              <div class="avatar">J</div>
+              <div><b style="color:rgba(255,255,255,.9)">Jason</b><div style="font-size:12px">创始人</div></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="wrap">
+        <div class="secHead">
+          <div>
+            <h2>常见问题</h2>
+            <p>FAQ 用 <code>&lt;details&gt;</code> 原生折叠，无需 JS，也更轻量。</p>
+          </div>
+        </div>
+
+        <div class="faq">
+          <details>
+            <summary>如何快速替换成自己的内容？</summary>
+            <p>直接替换：品牌名、导航链接、Hero 标题与描述、案例/价格/评价文案即可。右侧面板可放产品截图或视频封面。</p>
+          </details>
+          <details>
+            <summary>可以改成浅色风格吗？</summary>
+            <p>可以。把背景渐变改为浅色，文字颜色改为深色即可。整体布局结构不需要动。</p>
+          </details>
+          <details>
+            <summary>我想加“登录/注册”按钮？</summary>
+            <p>在导航右侧的按钮区域（navcta）增加一个链接即可，样式可复用 <code>.btn</code> 或 <code>.btn.primary</code>。</p>
+          </details>
+          <details>
+            <summary>如何部署上线？</summary>
+            <p>这是静态页面：放到 Nginx、Cloudflare Pages、GitHub Pages 或任意静态托管都可以。</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="wrap">
+        <div class="shot">
+          <div class="secHead" style="margin-bottom:10px">
+            <div>
+              <h2>准备开始？</h2>
+              <p>把“品牌/产品定位 + 目标用户 + 你想展示的功能/服务”发给我，就能把此模板改成你的专属官网结构。</p>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center">
+            <a class="btn primary" href="mailto:hello@example.com">邮件联系</a>
+            <a class="btn" href="#pricing">先看报价</a>
+            <span class="chip">也可替换为：表单 / WhatsApp / Telegram</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <div>
+          <div class="brand" style="margin-bottom:8px">
+            <span class="logo" aria-hidden="true"></span>
+            <span>Nova Studio</span>
+          </div>
+          <div style="color:var(--muted); line-height:1.8; font-size:14px;">
+            专注品牌官网与产品落地页设计。<br/>
+            用清晰结构与高级视觉，帮助用户更快建立信任。
+          </div>
+        </div>
+
+        <div>
+          <h4>产品</h4>
+          <a href="#solutions">解决方案</a>
+          <a href="#cases">案例展示</a>
+          <a href="#pricing">价格方案</a>
+        </div>
+
+        <div>
+          <h4>资源</h4>
+          <a href="#faq">常见问题</a>
+          <a href="#features">核心优势</a>
+          <a href="#contact">联系合作</a>
+        </div>
+
+        <div>
+          <h4>公司</h4>
+          <a href="#">关于我们</a>
+          <a href="#">隐私政策</a>
+          <a href="#">服务条款</a>
+        </div>
+      </div>
+
+      <div class="subline">
+        <div>© <span id="y"></span> Nova Studio. All rights reserved.</div>
+        <div class="social" aria-label="社交链接">
+          <a href="#" title="X / Twitter">X</a>
+          <a href="#" title="YouTube">YouTube</a>
+          <a href="#" title="GitHub">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 仅用于自动显示年份（可删），不影响页面结构 -->
     <script>
-        // Mobile Menu Toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('nav ul').classList.toggle('active');
-        });
-
-        // Counter Animation
-        function animateCounters() {
-            const counters = document.querySelectorAll('.counter');
-            const speed = 200; // The lower the slower
-            
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText;
-                
-                const inc = target / speed;
-                
-                if(count < target) {
-                    counter.innerText = Math.ceil(count + inc);
-                    setTimeout(animateCounters, 1);
-                } else {
-                    counter.innerText = target;
-                }
-            });
-        }
-
-        // Initialize counters when page loads
-        window.addEventListener('load', animateCounters);
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    document.querySelector('nav ul').classList.remove('active');
-                }
-            });
-        });
+      document.getElementById("y").textContent = new Date().getFullYear();
     </script>
+  </footer>
 </body>
-
 </html>
